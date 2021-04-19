@@ -31,3 +31,23 @@ function snippets_register_scripts() {
     wp_enqueue_script( 'toolbox-snippets-query', TOOLBOXSNIPPETS_URL . 'js/query-snippets.js', [ 'wp-element' ], TOOLBOXSNIPPETS_VERSION, false );
     wp_enqueue_script( 'toolbox-snippets-picsum', TOOLBOXSNIPPETS_URL . 'js/picsum-snippets.js', [ 'wp-element' ], TOOLBOXSNIPPETS_VERSION, false );
 }
+
+/**
+ * Load the Github Updater
+ */
+if( ! class_exists( 'github_updater' ) ){
+	include_once( TOOLBOXSNIPPETS_DIR . '/classes/class-github-updater.php' );
+}
+
+$snippets_updater = new github_updater( TOOLBOXSNIPPETS_FILE );
+$snippets_updater->set_username( 'badabingbreda' );
+$snippets_updater->set_repository( 'toolbox-snippets' );
+$snippets_updater->set_settings( array(
+			'requires'			=> '5.5',
+			'tested'			=> '5.7.1',
+			'rating'			=> '100.0',
+			'num_ratings'		=> '10',
+			'downloaded'		=> '10',
+			'added'				=> '2021-04-19',
+		) );
+$snippets_updater->initialize();
